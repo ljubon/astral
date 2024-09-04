@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: ghcr.io/gr-oss-devops/astral
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
@@ -16,16 +16,13 @@ fullnameOverride: ""
 podAnnotations: {}
 podLabels: {}
 
-podSecurityContext: {}
-  # fsGroup: 2000
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
 
-securityContext: {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
+securityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
 
 service:
   type: ClusterIP
@@ -55,14 +52,38 @@ resources:
     cpu: 100m
     memory: 128Mi
 
-livenessProbe:
-  httpGet:
-    path: /
-    port: http
-readinessProbe:
-  httpGet:
-    path: /
-    port: http
+env:
+  - name: SECRET_KEY_BASE
+    value: secret
+  - name: RAILS_ENV
+    value: "production"
+  - name: RAILS_ROOT
+    value: "/app"
+  - name: BUNDLE_DEPLOYMENT
+    value: "1"
+  - name: BUNDLE_APP_CONFIG
+    value: "/app/.bundle"
+  - name: BUNDLE_WITHOUT
+    value: "test development"
+  - name: VAULT_ADDR
+    value: "XXX"
+  - name: VAULT_TOKEN
+    value: "XXX"
+  - name: JWT_SIGNING_KEY
+    value: "XXX"
+  - name: SHARED_VAULT_CERT_PATH
+    value: "pki_int/issue/learn"
+  - name: SHARED_CERT_TTL
+    value: "86400"
+
+# livenessProbe:
+#   httpGet:
+#     path: /
+#     port: http
+# readinessProbe:
+#   httpGet:
+#     path: /
+#     port: http
 
 # Additional volumes on the output Deployment definition.
 volumes: []
