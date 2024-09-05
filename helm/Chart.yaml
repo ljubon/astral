@@ -1,6 +1,6 @@
 apiVersion: v2
 name: astral
-description: A Helm chart for Kubernetes
+description: Astral is an api-only application intended to simplify certificate acquisition for other applications/services
 
 # A chart can be either an 'application' or a 'library' chart.
 #
