@@ -5,10 +5,6 @@ shared:
   jwt_signing_key: <%= ENV["JWT_SIGNING_KEY"] %>
   cert_ttl: <%= 24.hours.in_seconds %>
 
-test:
-  vault_cert_path: <%= ENV["SHARED_VAULT_CERT_PATH"] %>
-  jwt_signing_key: <%= ENV["JWT_SIGNING_KEY"] %>
-
 development:
 
 production:
