@@ -1,9 +1,12 @@
 shared:
   vault_addr: <%= ENV["VAULT_ADDR"] %>
   vault_token: <%= ENV["VAULT_TOKEN"] %>
+  cert_ttl: <%= ENV["SHARED_CERT_TTL"] %>
+
+test:
+  cert_ttl: 24.hours.in_seconds
   vault_cert_path: <%= ENV["SHARED_VAULT_CERT_PATH"] %>
   jwt_signing_key: <%= ENV["JWT_SIGNING_KEY"] %>
-  cert_ttl: <%= ENV["SHARED_CERT_TTL"] %>
 
 development:
 
